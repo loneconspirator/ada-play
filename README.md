@@ -1,5 +1,9 @@
 # Ada Play
-A pi based RFID music player for toddlers
+A pi based RFID music player for toddlers.
+
+Intended to be run from a Pi Zero W in an enclosure with a RFID reader. It run a local media server, so you put music files on the pi's local disk and map RFID chips to those files. It will play over AirPlay.
+
+My first project with Raspberry Pi or Python.
 
 ## Setup
 
@@ -46,13 +50,3 @@ This is the daemon that makes the pi into a media server that can talk to AirPla
 * Install mpc
     - `sudo apt install mpc`
 
-
-
-
-Set up the dependancies:
-```bash
-
-
-sudo apt-get install vlc
-pip install python-vlc
-```
