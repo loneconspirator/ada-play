@@ -11,15 +11,25 @@ Connect an RFID reader and download the software as described in [this guide](ht
 
 ### Setup software on the pi
 #### Install Raspbian using NOOBS
-Make sure to open ssh connections and change the password for the `pi` user from `raspberry`
+Follow [these instructions](https://www.raspberrypi.org/documentation/installation/noobs.md) to get noobs set up. Configure your WiFi and Install Raspian
 
-change the hostname to be `ada-play`
+When raspian boots for the first time, from the Raspberry menu, Preferences, choose `Raspberry Pi Configuration` and make the following changes:
+ * In `System`:
+     - Change Password to one of your choosing. Write it somewhere
+     - Change Hostname to `ada-play`
+     - Change Boot to `To CLI`
+ * Select the `Interfaces` tab and enable `SSH`
+ * Go ahead and restart
+
+Now your sifi should be set up and you can `ssh pi@ada-play.local` from another computer and connect with your password
 
 #### Install this ada-play script as a daemon
-TODO: put the git clone command in here
-`sudo cp ada-play/ada-play.sh /etc/init.d/`
-`sudo chown root:root /etc/init.d/ada-play.sh`
-`sudo chmod 755 /etc/init.d/ada-play.sh`
+```bash
+git clone https://github.com/loneconspirator/ada-play.git
+sudo cp ada-play/ada-play.sh /etc/init.d/
+sudo chown root:root /etc/init.d/ada-play.sh
+sudo chmod 755 /etc/init.d/ada-play.sh
+```
 
 #### Put some music on to your server
 You can use SFTP or SCP and drop songs into `/home/pi/Music`
@@ -27,14 +37,14 @@ You can use SFTP or SCP and drop songs into `/home/pi/Music`
 #### forked-daapd
 This is the daemon that makes the pi into a media server that can talk to AirPlay targets, and be controlled by iTunes remotes
 
-* Install [forked-daapd](https://www.raspberrypi.org/forums/viewtopic.php?f=66&t=49928&hilit=itunes)
+* Install [forked-daapd](https://www.raspberrypi.org/forums/viewtopic.php?f=66&t=49928&hilit=itunes) TODO: Make this hoop-jumping a shell script you can just run
 * Configure forked-daapd
     - `ssh pi@ada-play.local`
-    - edit `/etc/forked-daapd.conf`
+    - edit the config file `sudo nano /etc/forked-daapd.conf`
     - point to library `/home/pi/Music` (line 71)
     - talk to airplay server (line 224, set password line 234)
     - have an admin password for the web ui (probably a good idea) (line 27)
-    - Set the device name (line 186)
+    - Set the device name (line 186) `Ada Play Device` - this is for playing from HDMI / speakers connected locally
 * Start the daemon
     - `sudo service forked-daapd start`
     - configure daemon to start at boot
