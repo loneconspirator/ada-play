@@ -4,6 +4,8 @@
 import RPi.GPIO as GPIO
 import MFRC522
 from subprocess import check_output
+
+from datetime import datetime
 import signal
 import json
 
@@ -19,15 +21,17 @@ songs = load_songs()
 
 def try_song(card_id):
     global current_card
+    curtime = datetime.now()
     # print "comparing: ", card_id, current_card
     if card_id == current_card:
         return
+    timestamp = curtime.strftime('%Y-%m-%d %H:%M:%S')
     current_card = card_id
     if card_id in songs:
-        print "Playing ", songs[card_id]
+        print timestamp, " Playing ", songs[card_id]
         start_song(songs[card_id])
     else:
-        print "Unknown ID: " + card_id
+        print timestamp, " Unknown ID: " + card_id
 
 def run_and_wait(cmd):
     return check_output(cmd)
