@@ -1,0 +1,20 @@
+#! /bin/sh
+# /etc/init.d/rfid-reader
+#
+
+case "$1" in
+  start)
+    echo "Starting RFID script for ada-play"
+    cd /home/pi/ada-play
+    python run.py &
+    ;;
+  stop)
+    echo "Would stop RFID script for ada-play here, but nothing to do"
+    ;;
+  *)
+    echo "Usage: /etc/init.d/blah {start|stop}"
+    exit 1
+    ;;
+esac
+
+exit 0
