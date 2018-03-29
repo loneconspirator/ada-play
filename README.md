@@ -25,6 +25,7 @@ Now your sifi should be set up and you can `ssh pi@ada-play.local` from another 
 
 #### Install this ada-play script as a daemon
 ```bash
+pip install python-daemon
 git clone https://github.com/loneconspirator/ada-play.git
 sudo cp ada-play/ada-play.sh /etc/init.d/
 sudo chown root:root /etc/init.d/ada-play.sh
@@ -59,4 +60,20 @@ This is the daemon that makes the pi into a media server that can talk to AirPla
 
 * Install mpc
     - `sudo apt install mpc`
+
+* Set the timezone for the pi so that logging timestamp will be localized
+    - `sudo timedatectl set-timezone "America/Los_Angeles"`
+
+    >>> import datetime
+    >>> datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    '2018-02-12 00:38:37'
+    >>> dt = datetime.datetime.now()
+
+
+## Known issues:
+ * python script will crash if the mpc command returns with an error exit status
+ * Audio has gotten glitchy when python process runs away and gobbles up cpu
+ * I've also seen audio getting glitchy when there wasn't a process going haywire and memory usage wasn't even that bad (but the pi was sluggish in the terminal)
+ * It kind of appears that the python process takes up massive cpu normally
+ * I should use a library like this to daemonize the process https://pypi.python.org/pypi/python-daemon/
 
