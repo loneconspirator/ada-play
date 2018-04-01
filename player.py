@@ -43,10 +43,11 @@ class Player(threading.Thread):
         else:
             self.logger.debug("Encountered unknown card: %s" % card_id)
 
-    def play(name):
+    def play(self, name):
         mpc('stop')
         mpc('clear')
         mpc('add', 'file:/home/pi/Music/%s' % name)
         mpc('play')
-    def mpc(*args):
+
+    def mpc(self, *args):
         check_output(['mpc'] + list(args))
