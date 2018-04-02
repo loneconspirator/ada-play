@@ -8,7 +8,6 @@ def load_songs():
     songs_data = open("songs.json").read()
     return json.loads(songs_data)
 
-
 class Player(threading.Thread):
     def __init__(self, logger, queue):
         threading.Thread.__init__(self)
@@ -36,18 +35,19 @@ class Player(threading.Thread):
         timestamp = curtime.strftime('%Y-%m-%d %H:%M:%S')
         self.current_card = card_id
         self.last_message_time = curtime
-        if card_id in load_songs():
+        songs = load_songs()
+        if card_id in songs:
             self.logger.debug("Playing song %s" % songs[card_id])
             # Here I would write to my actual log of songs played
-            play(songs[card_id])
+            self.play(songs[card_id])
         else:
             self.logger.debug("Encountered unknown card: %s" % card_id)
 
     def play(self, name):
-        mpc('stop')
-        mpc('clear')
-        mpc('add', 'file:/home/pi/Music/%s' % name)
-        mpc('play')
+        self.mpc('stop')
+        self.mpc('clear')
+        self.mpc('add', 'file:/home/pi/Music/%s' % name)
+        self.mpc('play')
 
     def mpc(self, *args):
         check_output(['mpc'] + list(args))
