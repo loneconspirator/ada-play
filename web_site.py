@@ -9,7 +9,7 @@ class HelloWorld(object):
         self.queue = queue
 
     def index(self):
-        return "Hello World!"
+        return open("web/index.html")
     index.exposed = True
 
 class Server(threading.Thread):
