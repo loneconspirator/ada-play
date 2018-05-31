@@ -1,0 +1,11 @@
+[Unit]
+Description=Ada Play
+After=multi-user.target
+ 
+[Service]
+Type=simple
+ExecStart=/usr/bin/python /home/pi/ada-play/main.py
+Restart=on-abort
+ 
+[Install]
+WantedBy=multi-user.target
