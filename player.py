@@ -5,7 +5,7 @@ from subprocess import check_output
 import json
 
 def load_songs():
-    songs_data = open("songs.json").read()
+    songs_data = open("/home/pi/ada-play/songs.json").read()
     return json.loads(songs_data)
 
 class Player(threading.Thread):
