@@ -21,7 +21,7 @@ When raspian boots for the first time, from the Raspberry menu, Preferences, cho
  * Select the `Interfaces` tab and enable `SSH`
  * Go ahead and restart
 
-Now your sifi should be set up and you can `ssh pi@ada-play.local` from another computer and connect with your password
+Now your wifi should be set up and you can `ssh pi@ada-play.local` from another computer and connect with your password
 
 #### Install this ada-play script as a daemon
 ```bash
