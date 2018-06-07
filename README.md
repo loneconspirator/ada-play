@@ -1,35 +1,33 @@
 # Ada Play
 A pi based RFID music player for toddlers.
 
-Intended to be run from a Pi Zero W in an enclosure with a RFID reader. It run a local media server, so you put music files on the pi's local disk and map RFID chips to those files. It will play over AirPlay.
+Intended to be run from a Pi Zero W in an enclosure with a RFID reader. It run a local media server, so you put music files on the pi's local disk and map RFID chips to those files. It will play over AirPlay / Chromecast.
 
 My first project with Raspberry Pi or Python.
 
 ## Setup
 
-Connect an RFID reader and download the software as described in [this guide](http://www.instructables.com/id/RFID-RC522-Raspberry-Pi/)
-
 ### Setup software on the pi
 #### Install Raspbian using NOOBS
 Follow [these instructions](https://www.raspberrypi.org/documentation/installation/noobs.md) to get noobs set up. Configure your WiFi and Install Raspian
 
-When raspian boots for the first time, from the Raspberry menu, Preferences, choose `Raspberry Pi Configuration` and make the following changes:
- * In `System`:
-     - Change Password to one of your choosing. Write it somewhere
-     - Change Hostname to `ada-play`
-     - Change Boot to `To CLI`
- * Select the `Interfaces` tab and enable `SSH`
- * Go ahead and restart
+When raspian boots for the first time, open a console and run `sudo raspi-config` and make the following changes:
+ * Change 1) Password to one of your choosing. Write it somewhere
+ * Change 2) Network Options -> N1) Hostname to `ada-play`
+ * Change 3) Boot Options -> B1) Desktop / CLI to `Console Autologin`
+ * Change 5) Interfacing Options -> P2) SSH to be enabled
+ * Finish and restart
+
+### Connect the RFID Reader
+Connect an RFID reader to the pi and download the software as described in [this guide](http://www.instructables.com/id/RFID-RC522-Raspberry-Pi/)
 
 Now your wifi should be set up and you can `ssh pi@ada-play.local` from another computer and connect with your password
 
-#### Install this ada-play script as a daemon
+#### Clone and set up the ada-play codebase to run as a daemon
 ```bash
-pip install python-daemon
 git clone https://github.com/loneconspirator/ada-play.git
-sudo cp ada-play/ada-play.sh /etc/init.d/
-sudo chown root:root /etc/init.d/ada-play.sh
-sudo chmod 755 /etc/init.d/ada-play.sh
+cd ada-play
+./setup.sh
 ```
 
 #### Put some music on to your server
