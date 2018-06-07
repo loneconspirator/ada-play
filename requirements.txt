@@ -1,0 +1,3 @@
+cherrypy
+python-daemon
+RPi.GPIO
